@@ -9,9 +9,9 @@ export default function SearchBar() {
             <input
             type="text"
             placeholder="Search"
-            className="">
+            className="outline-none text-neutral-500 text-sm font-normal placeholder:text-neutral-500 leading-5 w-full">
             </input>
-            <FontAwesomeIcon icon={faSearch} className="w-4 h-4" />
+            <FontAwesomeIcon icon={faSearch} className="w-4 h-4 text-base font-black" />
         </div>
     )
 }
