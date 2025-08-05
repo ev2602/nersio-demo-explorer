@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import MainLayout from "../components/MainLayout";
 import SearchBar from "../components/SearchBar";
 import { fetchAnimals } from "../services/animalService";
+import Headline from "../components/Headline";
 
 export default function Home() {
   const {data, error, isLoading} = useQuery({
@@ -20,9 +21,7 @@ export default function Home() {
   return (
     <MainLayout>
       <Header>
-        <h1 className="text-base text-neutral-900 font-semibold leading-5 ml-4">
-          Animal Finder
-        </h1>
+        <Headline>Animal Finder</Headline>
         <SearchBar />
       </Header>
 
