@@ -1,22 +1,18 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInfoCircle,
-  faSearch,
-  faTriangleExclamation,
-  faUtensils,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import Header from "../components/Header";
+import MainLayout from "../components/MainLayout";
+import SearchBar from "../components/SearchBar";
 
 export default function Home() {
   return (
-    <div>
-      <FontAwesomeIcon icon={faSearch} />
-      <FontAwesomeIcon icon={faInfoCircle} />
-      <FontAwesomeIcon icon={faXmark} />
-      <FontAwesomeIcon icon={faUtensils} />
-      <FontAwesomeIcon icon={faTriangleExclamation} />
-    </div>
+    <MainLayout>
+      <Header>
+        <h1 className="text-base text-neutral-900 font-semibold leading-5 ml-4">
+          Animal Finder
+        </h1>
+        <SearchBar />
+      </Header>
+    </MainLayout>
   );
 }
