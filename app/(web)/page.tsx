@@ -26,7 +26,7 @@ export default function Home() {
         <SearchBar />
       </Header>
 
-      <div className="pt-6 px-6 min-h-[10px] grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="pt-6 px-6 min-h-[10px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data.map(animal=> (
           <AnimalCard key={animal.id} {...animal} />
         ))}
