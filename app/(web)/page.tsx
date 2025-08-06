@@ -35,22 +35,23 @@ export default function Home() {
 
   return (
     <div className="flex w-full h-full p-2 gap-2">
-      <MainLayout>
-        <Header>
-          <Headline>Animal Finder</Headline>
-          <SearchBar value={searchText} onChange={setSearchText} />
-        </Header>
+      <div className={`${focusedAnimal ? 'hidden' : 'block'} sm:block flex-1`}>
+        <MainLayout>
+          <Header>
+            <Headline>Animal Finder</Headline>
+            <SearchBar value={searchText} onChange={setSearchText} />
+          </Header>
 
-        <div className="pt-6 px-6 min-h-[10px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredData.map(animal=> (
-            <AnimalCard key={animal.id} animal={animal} onInfoClick={setFocusedAnimal}/>
-          ))}
-        </div>
-      </MainLayout>
-
+          <div className="pt-6 px-6 min-h-[10px] grid [grid-template-columns:repeat(auto-fit,minmax(180px,1fr))] xl:grid-cols-4 gap-4">
+            {filteredData.map(animal=> (
+              <AnimalCard key={animal.id} animal={animal} onInfoClick={setFocusedAnimal}/>
+            ))}
+          </div>
+        </MainLayout>
+      </div>
 
       {focusedAnimal && 
-          <div className="w-[320px]">
+          <div className="flex w-full sm:w-[320px]">
             <AnimalDetailsCard 
               animal={focusedAnimal} 
               onClose={() => setFocusedAnimal(null)} 
