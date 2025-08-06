@@ -8,19 +8,28 @@ import MainLayout from "./MainLayout";
 import { faClose, faTriangleExclamation, faUtensils } from "@fortawesome/free-solid-svg-icons";
 import SegmentedControl from "./SegmentedControl";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAnimalByID, fetchAnimalsbyIDs } from "../services/animalService";
 
 type Props = {
     animal: Animal
     onClose: () => void
-    animals: Animal[]
     onInfoClick: (animal : Animal) => void
 }
 
-export default function AnimalDetailsCard({animal, onClose, animals, onInfoClick} : Props) {
+export default function AnimalDetailsCard({animal, onClose, onInfoClick} : Props) {
     const [selectedOption, setSelectedOption] = useState('Prey')
 
-    const connectedAnimals = selectedOption === 'Prey' ? animals.filter(a => animal.prey.includes(a.id))
-    : animals.filter(a => animal.predators.includes(a.id))
+    const selectedOptionIDs = selectedOption === 'Prey' ? animal.prey : animal.predators
+
+    const {data, error, isLoading} = useQuery({
+        queryKey: ['animal', animal.id, selectedOption], 
+        queryFn: () => fetchAnimalsbyIDs(selectedOptionIDs)
+    })
+
+
+    //if (error) return 'An error has occurred: ' + error.message
+    //if (isLoading) return 'Loading...'
 
     return(
         <MainLayout>
@@ -55,7 +64,7 @@ export default function AnimalDetailsCard({animal, onClose, animals, onInfoClick
                         />
 
                         <div className="flex flex-col gap-2 mt-4">
-                            {connectedAnimals.map((connectedAnimal)=> (
+                            {data?.map((connectedAnimal)=> (
                                 <div 
                                     key={connectedAnimal.id} 
                                     className="h-[48px] rounded-lg p-2 gap-2 cursor-pointer hover:bg-neutral-100"

@@ -54,7 +54,6 @@ export default function Home() {
             <AnimalDetailsCard 
               animal={focusedAnimal} 
               onClose={() => setFocusedAnimal(null)} 
-              animals={data} 
               onInfoClick={setFocusedAnimal}
             />
           </div>

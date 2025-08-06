@@ -18,3 +18,11 @@ export async function fetchAnimalByID(id: number) {
     const json = await response.json()
     return json.data
 }
+
+export async function fetchAnimalsbyIDs(ids: number[]) {
+    const result = await Promise.all(
+        ids.map((id) => fetchAnimalByID(id))
+    )
+
+    return result
+}
