@@ -12,7 +12,7 @@ import { Animal } from "../types/animal";
 import AnimalDetailsCard from "../components/AnimalDetailsCard";
 
 export default function Home() {
-  
+  const [searchText, setSearchText] = useState("")
   const [focusedAnimal, setFocusedAnimal] = useState<Animal | null>(null)
 
   const {data, error, isLoading} = useQuery({
@@ -24,17 +24,25 @@ export default function Home() {
   if (error) return 'An error has occurred: ' + error.message
   if (isLoading) return 'Loading...'
 
+  const filteredData = data.filter((animal) => {
+    const lower = searchText.toLowerCase()
+    return (
+        animal.name.toLowerCase().includes(lower) ||
+        animal.species.toLowerCase().includes(lower)
+    )
+  })
+
 
   return (
     <div className="flex w-full h-full p-2 gap-2">
       <MainLayout>
         <Header>
           <Headline>Animal Finder</Headline>
-          <SearchBar />
+          <SearchBar value={searchText} onChange={setSearchText} />
         </Header>
 
         <div className="pt-6 px-6 min-h-[10px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {data.map(animal=> (
+          {filteredData.map(animal=> (
             <AnimalCard key={animal.id} animal={animal} onInfoClick={setFocusedAnimal}/>
           ))}
         </div>
